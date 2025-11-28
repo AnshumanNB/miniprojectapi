@@ -5,6 +5,9 @@ const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
 const pool = require('./db');
 
+const app = express();
+app.use(express.json());
+
 app.get('/init-db', async (req, res) => {
   try {
     await pool.query(`
@@ -22,9 +25,6 @@ app.get('/init-db', async (req, res) => {
     res.status(500).json({ message: 'Init failed' });
   }
 });
-
-const app = express();
-app.use(express.json());
 
 // Helper to generate JWT
 function createToken(payload) {
@@ -193,4 +193,5 @@ const port = process.env.PORT || 3000;
 app.listen(port, () => {
   console.log(`Auth API listening on port ${port}`);
 });
+
 

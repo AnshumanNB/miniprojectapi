@@ -2,6 +2,7 @@
 require('dotenv').config();
 const express = require('express');
 const bcrypt = require('bcryptjs');
+const cors = require('cors');
 const jwt = require('jsonwebtoken');
 const pool = require('./db');
 
@@ -223,6 +224,7 @@ const port = process.env.PORT || 3000;
 app.listen(port, () => {
   console.log(`Auth API listening on port ${port}`);
 });
+
 
 
 

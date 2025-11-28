@@ -26,6 +26,18 @@ app.use(express.json());
 //   }
 // });
 
+app.get('/debug/users', async (req, res) => {
+  try {
+    const result = await pool.query(
+      'SELECT id, username, email, created_at FROM users ORDER BY id DESC LIMIT 20'
+    );
+    res.json(result.rows);
+  } catch (err) {
+    console.error('Debug users error:', err);
+    res.status(500).json({ message: 'Debug failed' });
+  }
+});
+
 // Helper to generate JWT
 function createToken(payload) {
   return jwt.sign(payload, process.env.JWT_SECRET, { expiresIn: '1h' });
@@ -193,6 +205,7 @@ const port = process.env.PORT || 3000;
 app.listen(port, () => {
   console.log(`Auth API listening on port ${port}`);
 });
+
 
 
 

@@ -8,23 +8,23 @@ const pool = require('./db');
 const app = express();
 app.use(express.json());
 
-app.get('/init-db', async (req, res) => {
-  try {
-    await pool.query(`
-      CREATE TABLE IF NOT EXISTS users (
-        id SERIAL PRIMARY KEY,
-        username VARCHAR(50) NOT NULL UNIQUE,
-        email VARCHAR(255) NOT NULL UNIQUE,
-        password_hash VARCHAR(255) NOT NULL,
-        created_at TIMESTAMP DEFAULT NOW()
-      );
-    `);
-    res.json({ message: 'users table created (or already exists)' });
-  } catch (err) {
-    console.error('Init DB error:', err);
-    res.status(500).json({ message: 'Init failed' });
-  }
-});
+// app.get('/init-db', async (req, res) => {
+//   try {
+//     await pool.query(`
+//       CREATE TABLE IF NOT EXISTS users (
+//         id SERIAL PRIMARY KEY,
+//         username VARCHAR(50) NOT NULL UNIQUE,
+//         email VARCHAR(255) NOT NULL UNIQUE,
+//         password_hash VARCHAR(255) NOT NULL,
+//         created_at TIMESTAMP DEFAULT NOW()
+//       );
+//     `);
+//     res.json({ message: 'users table created (or already exists)' });
+//   } catch (err) {
+//     console.error('Init DB error:', err);
+//     res.status(500).json({ message: 'Init failed' });
+//   }
+// });
 
 // Helper to generate JWT
 function createToken(payload) {
@@ -193,5 +193,6 @@ const port = process.env.PORT || 3000;
 app.listen(port, () => {
   console.log(`Auth API listening on port ${port}`);
 });
+
 
 

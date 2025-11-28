@@ -13,12 +13,7 @@ const allowedOrigins = [
   'https://techlabzmp.netlify.app',      // prod, change to your real URL
 ];
 app.use(cors({
-  origin(origin, callback) {
-    // allow non-browser tools (like Postman) which send no Origin
-    if (!origin) return callback(null, true);
-    if (allowedOrigins.includes(origin)) return callback(null, true);
-    return callback(new Error('Not allowed by CORS'));
-  },
+  origin:'*',
   methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
   allowedHeaders: ['Content-Type', 'Authorization'],
 }));
@@ -224,6 +219,7 @@ const port = process.env.PORT || 3000;
 app.listen(port, () => {
   console.log(`Auth API listening on port ${port}`);
 });
+
 
 
 

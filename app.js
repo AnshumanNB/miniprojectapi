@@ -19,7 +19,6 @@ app.use(cors({
 }));
 
 // handle preflight globally
-app.options('*', cors());
 app.use(express.json());
 
 // app.get('/init-db', async (req, res) => {
@@ -219,6 +218,7 @@ const port = process.env.PORT || 3000;
 app.listen(port, () => {
   console.log(`Auth API listening on port ${port}`);
 });
+
 
 
 
